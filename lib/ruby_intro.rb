@@ -38,25 +38,59 @@ end
 
 def hello(name)
   # YOUR CODE HERE
+  return "Hello, " + name
 end
 
 def starts_with_consonant? s
   # YOUR CODE HERE
+  if s.size == 0 
+    return false
+  end
+  return /[b-df-hj-np-tv-z]/i.match(s[0]) != nil
 end
 
 def binary_multiple_of_4? s
-  # YOUR CODE HERE
+  # Check to make sure everything is 0s and 1s
+  if /[^0-1]/ =~ s
+    return false
+  end
+  # if the size is 1 or 2, it can be divisible
+  # if s.size < 3 && s.size > 0
+  #  return !(/[^0]/ =~ s)
+  #end
+  # So if size isn't 0, and eithers is all 0s or ends with 100 it is divisible by 4.
+  return s.size > 0 && ( s.end_with?("100") || !( /[^0]/ =~ s ) )
 end
 
 # Part 3
 
 class BookInStock
 # YOUR CODE HERE
+  def initialize isbn, price
+    @isbn = isbn
+    @price = price
+    if @isbn.size == 0 || @price <= 0
+      raise ArgumentError.new("Invalid")
+    end
+  end
+  
+  def isbn
+    @isbn
+  end
+  
+  def isbn=(value)
+   @isbn = value
+  end
+  
+  def price
+    @price
+  end
+  
+  def price=(value)
+   @price = value
+  end
+  
+  def price_as_string
+    return "$" + sprintf("%.2f", price)
+  end
 end
-
-#arr = [1,2,3,4,5]
-#puts (sum_to_n?([1,2,3,4,5], 5))       # 2 + 3 = 5
-#puts (sum_to_n?([3,0,5], 5))        # 0 + 5 = 5
- #     puts (sum_to_n?([-1,-2,3,4,5,-8], -3)) # handles negative sum
-  #    puts (sum_to_n?([-1,-2,3,4,5,-8], 12))  # 3 + 4 + 5 = 12 (not 3 elements)
-   #   puts (sum_to_n?([-1,-2,3,4,6,-8], 12)) # no two elements that sum
